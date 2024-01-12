@@ -83,10 +83,10 @@ palindromeHalfs xs = map firstHalf (filter palindrome xs)
 firstHalf :: String -> String
 firstHalf x = take (halfLength x) x
     where
-        halfLength x = (length x) `div` 2 + ((length x) `mod` 2)
+        halfLength x = length x `div` 2 + (length x `mod` 2)
     
 palindrome :: String -> Bool
-palindrome x = (reverse x) == x
+palindrome x = reverse x == x
 
 ------------------------------------------------------------------------------
 -- Ex 5: Implement a function capitalize that takes in a string and
@@ -123,7 +123,10 @@ capitalize xs = unwords (map capitalizeWord (words xs))
 --   * the function takeWhile
 
 powers :: Int -> Int -> [Int]
-powers k max = todo
+powers k max = takeWhile (max >=) (powersList k 0)
+
+powersList :: Int -> Int -> [Int]
+powersList x n = x^n : powersList x (n+1)
 
 ------------------------------------------------------------------------------
 -- Ex 7: implement a functional while loop. While should be a function
