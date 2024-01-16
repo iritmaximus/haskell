@@ -195,7 +195,17 @@ bomb x = Right (x-1)
 -- Hint! This is a great use for list comprehensions
 
 joinToLength :: Int -> [String] -> [String]
-joinToLength = todo
+joinToLength n xs = filter (\str -> length str == n) (allCombinations xs)
+
+
+allCombinations :: [String] -> [String]
+allCombinations xs = merge (map (`allCombinationsWithStr` xs) xs) []
+    where 
+        merge :: [[a]] -> [a] -> [a]
+        merge (x:xs) acc = merge xs (x ++ acc)
+        merge _ acc = acc
+        allCombinationsWithStr :: String -> [String] -> [String]
+        allCombinationsWithStr x = map (x++)
 
 ------------------------------------------------------------------------------
 -- Ex 10: implement the operator +|+ that returns a list with the first
