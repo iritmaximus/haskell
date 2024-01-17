@@ -240,7 +240,7 @@ a +|+ b = [head a, head b]
 --   sumRights [Left "bad!", Left "missing"]         ==>  0
 
 sumRights :: [Either a Int] -> Int
-sumRights = todo
+sumRights = foldr (\a b -> fromRight 0 a + b) 0
 
 ------------------------------------------------------------------------------
 -- Ex 12: recall the binary function composition operation
