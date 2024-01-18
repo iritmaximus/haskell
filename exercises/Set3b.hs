@@ -50,9 +50,20 @@ buildList start count end = buildList' start count [end]
 -- Use recursion and the : operator to build the list.
 --
 -- Ps. you'll probably need a recursive helper function
+--sums 0 = []
+--sums i = sum i : sums (i-1)
 
 sums :: Int -> [Int]
-sums i = todo
+sums i = sums' i 1
+  where
+    sums' :: Int -> Int -> [Int]
+    sums' i n
+      | i >= n = sum n : sums' i (n+1)
+      | otherwise = []
+
+    sum :: Int -> Int
+    sum 0 = 0
+    sum i = i + sum (i-1)
 
 ------------------------------------------------------------------------------
 -- Ex 3: define a function mylast that returns the last value of the
