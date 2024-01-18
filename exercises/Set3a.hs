@@ -318,4 +318,16 @@ multiApp f gs x = f (multiApp' gs x [])
 -- function, the surprise won't work. See section 3.8 in the material.
 
 interpreter :: [String] -> [String]
-interpreter commands = todo
+interpreter commands = reverse $ interpreter' commands (0,0) []
+  where
+    interpreter' :: [String] -> (Int, Int) -> [String] -> [String]
+    interpreter' [] cords acc = acc
+    interpreter' (command:commands) cords acc =
+      case command of
+        "up" -> interpreter' commands ((fst cords) + 1, snd cords) acc
+        "down"-> interpreter' commands ((fst cords) - 1, snd cords) acc
+        "right" -> interpreter' commands (fst cords, (snd cords) + 1) acc
+        "left" -> interpreter' commands (fst cords, (snd cords) - 1) acc
+        "printY" -> interpreter' commands cords (show (fst cords) : acc)
+        "printX" -> interpreter' commands cords (show (snd cords) : acc)
+        otherwise -> interpreter' commands cords acc
