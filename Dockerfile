@@ -9,4 +9,4 @@ RUN stack build
 COPY exercises /usr/src/app
 
 # modify next line to change the wanted exercise
-CMD ["stack", "runhaskell", "Set3aTest.hs"]
+CMD ["stack", "runhaskell", "Set3bTest.hs"]
