@@ -129,7 +129,12 @@ sorted _ = True
 
 sumsOf :: [Int] -> [Int]
 sumsOf [] = []
-sumsOf xs = todo
+sumsOf [x] = [x]
+sumsOf (x:xs) = (sum xs) : sumsOf xs
+    where
+        sum :: [Int] -> Int
+        sum [] = 0
+        sum (x:xs) = x + sum xs
 
 ------------------------------------------------------------------------------
 -- Ex 7: implement the function merge that merges two sorted lists of
@@ -171,7 +176,14 @@ merge [] [] = []
 --     ==> ("Mouse",8)
 
 mymaximum :: (a -> a -> Bool) -> a -> [a] -> a
-mymaximum bigger initial xs = todo
+mymaximum bigger initial xs = mymaximum' bigger initial xs
+    where 
+        mymaximum' :: (a -> a -> Bool) -> a -> [a] -> a
+        mymaximum' bigger biggest [] = biggest
+        mymaximum' bigger biggest (x:xs) = if bigger x biggest
+                                              then mymaximum' bigger x xs
+                                              else mymaximum' bigger biggest xs
+
 
 ------------------------------------------------------------------------------
 -- Ex 9: define a version of map that takes a two-argument function
@@ -185,7 +197,8 @@ mymaximum bigger initial xs = todo
 -- Use recursion and pattern matching. Do not use any library functions.
 
 map2 :: (a -> b -> c) -> [a] -> [b] -> [c]
-map2 f as bs = todo
+map2 f (a:as) (b:bs) = (f a b) : map2 f as bs
+map2 f _ _ = []
 
 ------------------------------------------------------------------------------
 -- Ex 10: implement the function maybeMap, which works a bit like a
@@ -209,4 +222,7 @@ map2 f as bs = todo
 --   ==> []
 
 maybeMap :: (a -> Maybe b) -> [a] -> [b]
-maybeMap f xs = todo
+maybeMap f [] = []
+maybeMap f (x:xs) = case f x of
+                        Just x -> x : maybeMap f xs
+                        Nothing -> maybeMap f xs
