@@ -35,7 +35,12 @@ import Data.Array
 -- you remove the Eq a => constraint from the type!
 
 allEqual :: Eq a => [a] -> Bool
-allEqual xs = todo
+allEqual [] = True
+allEqual (x:xs) = allEqual' x xs
+    where
+        allEqual' :: Eq a => a -> [a] -> Bool
+        allEqual' prev (x:xs) = if prev == x then allEqual' x xs else False
+        allEqual' prev [] = True
 
 ------------------------------------------------------------------------------
 -- Ex 2: implement the function distinct which returns True if all
@@ -50,7 +55,7 @@ allEqual xs = todo
 --   distinct [1,2] ==> True
 
 distinct :: Eq a => [a] -> Bool
-distinct = todo
+distinct xs = length xs == length (nub xs)
 
 ------------------------------------------------------------------------------
 -- Ex 3: implement the function middle that returns the middle value
@@ -63,7 +68,8 @@ distinct = todo
 --   middle 'b' 'a' 'c'  ==> 'b'
 --   middle 1 7 3        ==> 3
 
-middle = todo
+middle :: (Ord a) => a -> a -> a -> a
+middle x y z = sort [x, y, z] !! 1
 
 ------------------------------------------------------------------------------
 -- Ex 4: return the range of an input list, that is, the difference
@@ -78,8 +84,9 @@ middle = todo
 --   rangeOf [4,2,1,3]          ==> 3
 --   rangeOf [1.5,1.0,1.1,1.2]  ==> 0.5
 
-rangeOf :: [a] -> a
-rangeOf = todo
+rangeOf :: (Ord a, Num a) => [a] -> a
+rangeOf xs = last sorted_xs - head sorted_xs
+    where sorted_xs = sort xs
 
 ------------------------------------------------------------------------------
 -- Ex 5: given a (non-empty) list of (non-empty) lists, return the longest
@@ -98,6 +105,11 @@ rangeOf = todo
 --   longest ["bcd","def","ab"] ==> "bcd"
 
 longest = todo
+-- longest :: (Foldable t) => [t a] -> t a
+-- longest (x:xs) = if length x == longest_len then return x else longest xs
+--     where
+--         sorted = sortBy (comparing length) xs
+--         longest_len = length (last sorted)
 
 ------------------------------------------------------------------------------
 -- Ex 6: Implement the function incrementKey, that takes a list of
@@ -129,7 +141,11 @@ incrementKey = todo
 -- length to a Fractional
 
 average :: Fractional a => [a] -> a
-average xs = todo
+average xs = (sum xs) / (fromIntegral (length xs))
+    where
+        sum :: Num a => [a] -> a
+        sum [] = 0
+        sum (x:xs) = x + sum xs
 
 ------------------------------------------------------------------------------
 -- Ex 8: given a map from player name to score and two players, return
