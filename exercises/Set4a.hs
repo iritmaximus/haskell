@@ -21,6 +21,7 @@ import Data.List
 import Data.Ord
 import qualified Data.Map as Map
 import Data.Array
+import Data.Foldable as Foldable
 
 ------------------------------------------------------------------------------
 -- Ex 1: implement the function allEqual which returns True if all
@@ -104,12 +105,20 @@ rangeOf xs = last sorted_xs - head sorted_xs
 --   longest [[1,2,3],[4,5],[6]] ==> [1,2,3]
 --   longest ["bcd","def","ab"] ==> "bcd"
 
-longest = todo
+-- longest = todo
 -- longest :: (Foldable t) => [t a] -> t a
--- longest (x:xs) = if length x == longest_len then return x else longest xs
---     where
---         sorted = sortBy (comparing length) xs
---         longest_len = length (last sorted)
+longest (x:xs) = foldr compare x xs
+  where
+    -- compare :: (Foldable t) => t a -> Int -> Int
+    -- compare x len = if (length x > len) then (length x) else len
+    -- compare :: (Foldable t) => t a -> t a -> t a
+    compare x y = if length x == length y then head_comp x y else len_comp x y
+
+    -- head_comp :: (Foldable t) => t a -> t a -> t a
+    head_comp x y = if (head (Foldable.toList x)) < (head (Foldable.toList y)) then x else y
+
+    -- len_comp :: (Foldable t) => t a -> t a -> t a
+    len_comp x y = if length x > length y then x else y
 
 ------------------------------------------------------------------------------
 -- Ex 6: Implement the function incrementKey, that takes a list of
