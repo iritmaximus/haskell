@@ -181,9 +181,9 @@ winner scores player1 player2 = case compare p1_score p2_score of
   EQ -> player1
   GT -> player1
   LT -> player2
-    where
-      p1_score = Map.findWithDefault 0 player1 scores
-      p2_score = Map.findWithDefault 0 player2 scores
+  where
+    p1_score = Map.findWithDefault 0 player1 scores
+    p2_score = Map.findWithDefault 0 player2 scores
 
 
 ------------------------------------------------------------------------------
