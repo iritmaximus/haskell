@@ -199,8 +199,14 @@ winner scores player1 player2 = case compare p1_score p2_score of
 --     ==> Map.fromList [(False,3),(True,1)]
 
 freqs :: (Eq a, Ord a) => [a] -> Map.Map a Int
-freqs xs = todo
-
+freqs [] = Map.fromList []
+freqs (x:xs) = foldr updateFreq (Map.singleton x 1) xs
+  where
+    updateFreq :: (Eq a, Ord a) => a -> Map.Map a Int -> Map.Map a Int
+    updateFreq x acc = Map.insert x (case Map.lookup x acc of
+      Nothing -> 1
+      Just a -> a+1) acc
+    
 ------------------------------------------------------------------------------
 -- Ex 10: recall the withdraw example from the course material. Write a
 -- similar function, transfer, that transfers money from one account
