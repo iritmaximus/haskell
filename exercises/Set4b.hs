@@ -124,5 +124,7 @@ headHelper x (Just a) = Just x
 myLast :: [a] -> Maybe a
 myLast xs = foldr lastHelper Nothing xs
 
-lastHelper = todo
+lastHelper x acc = case acc of
+  Nothing -> Just x
+  Just a -> Just a
 
