@@ -87,7 +87,12 @@ concatHelper x acc = x ++ acc
 largest :: [Int] -> [Int]
 largest xs = foldr largestHelper [] xs
 
-largestHelper = todo
+largestHelper :: Int -> [Int] -> [Int]
+largestHelper x acc 
+  | acc == [] = x : []
+  | x == maximum acc = x : acc 
+  | x > maximum acc = x : [] 
+  | otherwise = acc
 
 
 ------------------------------------------------------------------------------
