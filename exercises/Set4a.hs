@@ -176,7 +176,15 @@ average xs = (sum xs) / (fromIntegral (length xs))
 --     ==> "Lisa"
 
 winner :: Map.Map String Int -> String -> String -> String
-winner scores player1 player2 = todo
+-- winner scores player1 player2 = Map.findWithDefault 0 player1 scores : Map.findWithDefault 0 player2 scores : []
+winner scores player1 player2 = case compare p1_score p2_score of
+  EQ -> player1
+  GT -> player1
+  LT -> player2
+    where
+      p1_score = Map.findWithDefault 0 player1 scores
+      p2_score = Map.findWithDefault 0 player2 scores
+
 
 ------------------------------------------------------------------------------
 -- Ex 9: compute how many times each value in the list occurs. Return
