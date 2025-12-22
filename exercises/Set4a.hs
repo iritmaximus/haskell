@@ -264,4 +264,7 @@ swap i j arr = arr // ([(i, arr ! j), (j, arr ! i)])
 -- Hint: check out Data.Array.indices or Data.Array.assocs
 
 maxIndex :: (Ix i, Ord a) => Array i a -> i
-maxIndex = todo
+maxIndex xs = fst (foldr1 compElement (Data.Array.assocs xs))
+  where
+    compElement :: (Ix i, Ord a) => (i, a) -> (i, a) -> (i, a)
+    compElement x acc = if snd x > snd acc then x else acc
