@@ -155,25 +155,31 @@ study s = case s of
 -- get (tick (tick (toggle (tick zero))))
 --   ==> -1
 
-data UpDown = UpDownUndefined1 | UpDownUndefined2
+data UpDown = Up Int | Down Int
 
 -- zero is an increasing counter with value 0
 zero :: UpDown
-zero = todo
+zero = Up 0
 
 -- get returns the counter value
 get :: UpDown -> Int
-get ud = todo
+get ud = case ud of
+  Up n -> n
+  Down n -> n
 
 -- tick increases an increasing counter by one or decreases a
 -- decreasing counter by one
 tick :: UpDown -> UpDown
-tick ud = todo
+tick ud = case ud of
+  Up n -> Up (n+1)
+  Down n -> Down (n-1)
 
 -- toggle changes an increasing counter into a decreasing counter and
 -- vice versa
 toggle :: UpDown -> UpDown
-toggle ud = todo
+toggle ud = case ud of
+  Up n -> Down n
+  Down n -> Up n
 
 ------------------------------------------------------------------------------
 -- Ex 8: you'll find a Color datatype below. It has the three basic
