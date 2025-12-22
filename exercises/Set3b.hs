@@ -145,6 +145,8 @@ sumsOf (x:xs) = (sum xs) : sumsOf xs
 -- Examples:
 --   merge [1,3,5] [2,4,6] ==> [1,2,3,4,5,6]
 --   merge [1,1,6] [1,2]   ==> [1,1,1,2,6]
+--   merge [1,2,3,20] [7]  ==> [1,2,3,7,20]
+--   merge [1] [2,3,4,5,6] ==> [1,2,3,4,5,6]
 
 merge :: [Int] -> [Int] -> [Int]
 merge (x:xs) (y:ys) = if x < y
