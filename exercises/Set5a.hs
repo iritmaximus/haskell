@@ -209,7 +209,12 @@ data Color = Red | Green | Blue | Mix Color Color | Invert Color
   deriving Show
 
 rgb :: Color -> [Double]
-rgb col = todo
+rgb col = case col of
+  Red -> [1,0,0]
+  Green -> [0,1,0]
+  Blue -> [0,0,1]
+  Mix x y -> map (\(i,v) -> (i+v)/2) $ zip (rgb x) (rgb y)
+  Invert x -> map (\v -> 1-v) (rgb x)
 
 ------------------------------------------------------------------------------
 -- Ex 9: define a parameterized datatype OneOrTwo that contains one or
