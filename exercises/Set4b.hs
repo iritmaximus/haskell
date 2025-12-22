@@ -71,8 +71,9 @@ slHelper x (accX, accI) = (accX+x, accI+1)
 myConcat :: [[a]] -> [a]
 myConcat xs = foldr concatHelper concatStart xs
 
-concatStart = todo
-concatHelper = todo
+concatStart = []
+concatHelper :: [a] -> [a] -> [a]
+concatHelper x acc = x ++ acc
 
 ------------------------------------------------------------------------------
 -- Ex 5: get all occurrences of the largest number in a list with a
