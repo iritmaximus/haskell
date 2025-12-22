@@ -233,7 +233,17 @@ freqs (x:xs) = foldr updateFreq (Map.singleton x 1) xs
 --     ==> fromList [("Bob",100),("Mike",50)]
 
 transfer :: String -> String -> Int -> Map.Map String Int -> Map.Map String Int
-transfer from to amount bank = todo
+transfer from to amount bank | Map.notMember from bank = bank
+                             | Map.notMember to bank = bank
+                             | amount < 0 = bank
+                             | (Map.findWithDefault 0 from bank) - amount < 0 = bank
+                             | otherwise = Map.alter (apply (-) amount) from (Map.alter (apply (+) amount) to bank)
+                               where
+                                 apply :: (Int -> Int -> Int) -> Int -> Maybe Int -> Maybe Int
+                                 apply op amount value = case value of
+                                       Nothing -> Just $ 0 `op` amount
+                                       Just value -> Just $ value `op` amount
+
 
 ------------------------------------------------------------------------------
 -- Ex 11: given an Array and two indices, swap the elements in the indices.
