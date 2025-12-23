@@ -341,10 +341,19 @@ inc (O b) = I b
 inc (I b) = O (inc b)
 
 prettyPrint :: Bin -> String
-prettyPrint = todo
+prettyPrint (O b) = prettyPrint b ++ "0"
+prettyPrint (I b) = prettyPrint b ++ "1"
+prettyPrint End = ""
 
 fromBin :: Bin -> Int
-fromBin = todo
+fromBin b = fromBin' b 0
+fromBin' (I b) acc = fromBin' b (acc+1) + 2^acc
+fromBin' (O b) acc = fromBin' b (acc+1)
+fromBin' End _ = 0
 
 toBin :: Int -> Bin
-toBin = todo
+toBin n = toBin' n End
+
+toBin' :: Int -> Bin -> Bin
+toBin' 0 b = O End
+toBin' n b = if fromBin b >= n then b else toBin' n (inc b)
