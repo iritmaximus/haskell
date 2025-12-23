@@ -27,7 +27,8 @@ valAtRoot Empty = Nothing
 --   treeSize (Node 3 (Node 7 Empty Empty) (Node 1 Empty Empty))  ==>  3
 
 treeSize :: Tree a -> Int
-treeSize t = todo
+treeSize (Node _ t1 t2) = 1 + (treeSize t1) + (treeSize t2)
+treeSize Empty = 0
 
 ------------------------------------------------------------------------------
 -- Ex 3: get the largest value in a tree of positive Ints. The
