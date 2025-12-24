@@ -52,7 +52,8 @@ treeMax Empty = 0
 --   allValues (>0) (Node 1 Empty (Node 0 Empty Empty))  ==>  False
 
 allValues :: (a -> Bool) -> Tree a -> Bool
-allValues condition tree = todo
+allValues condition (Node value t1 t2) = if condition value then allValues condition t1 && allValues condition t2 else False
+allValues condition Empty = True
 
 ------------------------------------------------------------------------------
 -- Ex 5: implement map for trees.
