@@ -39,7 +39,8 @@ treeSize Empty = 0
 --   treeMax (Node 3 (Node 5 Empty Empty) (Node 4 Empty Empty))  ==>  5
 
 treeMax :: Tree Int -> Int
-treeMax = todo
+treeMax (Node value t1 t2) = if value >= max (treeMax t1) (treeMax t2) then value else if treeMax t1 > treeMax t2 then treeMax t1 else treeMax t2
+treeMax Empty = 0
 
 ------------------------------------------------------------------------------
 -- Ex 4: implement a function that checks if all tree values satisfy a
