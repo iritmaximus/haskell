@@ -202,7 +202,11 @@ walk _ Empty = Nothing
 --   set [StepL,StepR] 1 (Node 0 Empty Empty)  ==>  (Node 0 Empty Empty)
 
 set :: [Step] -> a -> Tree a -> Tree a
-set path val tree = todo
+set (step:steps) val (Node a t1 t2) = case step of
+  StepL -> (Node a (set steps val t1) t2)
+  StepR -> (Node a t1 (set steps val t2))
+set [] val (Node a t1 t2) = Node val t1 t2
+set path val Empty = Empty
 
 ------------------------------------------------------------------------------
 -- Ex 10: given a value and a tree, return a path that goes from the
