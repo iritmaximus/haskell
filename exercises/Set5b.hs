@@ -155,7 +155,10 @@ cull val Empty = Empty
 --                     (Node 3 Empty Empty))   ==>   True
 
 isOrdered :: Ord a => Tree a -> Bool
-isOrdered = todo
+isOrdered (Node val t1 t2)
+  | allValues (val>) t1 && allValues (val<) t2 = isOrdered t1 && isOrdered t2
+  | otherwise = False
+isOrdered Empty = True
 
 ------------------------------------------------------------------------------
 -- Ex 8: a path in a tree can be represented as a list of steps that
