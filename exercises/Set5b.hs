@@ -223,3 +223,7 @@ set path val Empty = Empty
 
 search :: Eq a => a -> Tree a -> Maybe [Step]
 search = todo
+-- search val (Node a t1 t2) = if a == val then Just [] else case search val t1 of
+--   Just steps -> Just (steps : search val t1)
+--   Nothing -> Nothing
+-- searh _ Empty = Nothing
